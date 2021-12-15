@@ -1,0 +1,23 @@
+statement ::= "PRINT" ( expresion | string ) nl |
+              "IF" comparacion "THEN" nl {statement} {"elif" comparacion "THEN" nl {statement}} {"else" comparacion "THEN" nl {statement}}"ENDIF" nl |
+              "WHILE" comparacion "REPEAT" nl {statement} "ENDWHILE" nl |
+              "LABEL" ident nl |
+              "LET" ident "=" expresion nl
+              "DECLARA" ident "COMO" devices nl |
+              "ELIMINAR" devices ("DEL" | "DE_LA" | "LA") house nl |
+              "INSERTAR" ((ground&land|house|house&services) | (devices|materials|tools|heavy_machinery)) ("AL"|"A_LA") (|ground&land|house|house&services) nl
+
+comparacion ::= expresion ( ("==" | "!=" | ">" | "<" | ">=" | "<=") expresion)+
+expresion ::= term {( "+" | "-" ) term}
+term ::= unary { [ "/" | "*" ] unary }
+unary ::= [ "+" | "-" ] primary
+primary ::= number | ident
+nl ::= '\n'+
+
+devices ::= ("TV"|"PC"|"ESTUFA"|"LAVADORA"|"FOCO"|"CALENTON"|"AIRE_ACONDICIONADO"|"MICROONDAS"|"CONSOLA")+
+materials ::= ("PINTURA"|"LAMINA"|"ARENA"|"CEMENTO"|"MADERA"|"VENTANAS"|"CERAMICA"|"GRANITO"|"YESO")+
+tools ::=("PINZAS"||"SERRUCHO|"PALA"|"MEZCLADORA"|"TALADRO"|"LLANA"|"BROCHA"|"MONTACARGAS"|"AMOLADORA")+
+heavy_machinery ::= ("TRACTOR_BULLDOZER"|"RETROEXCAVADORA"|"EXCAVADORA"|"CAMION_HORMIGONERA"|"RODILLO_COMPACTADOR"|"GRUA"|"MOTONIVELADORA"|"MANIPULADOR_TELESCOPICO"|"CARGADOR_FRONTAL")+
+ground&land ::= ("LUGAR_ROCOSO"|"TIERRA"  |"LUGAR_MONTANOSO"  |"LUGAR_DESERTICO"|"PLAYA"  |"SUELO"  |"PAIS"  |"REGION"  |"TERRENO")+
+house ::=  ("CASA_PEQUENA"  |"CASA_NORMAL"  |"CASA_GRANDE"  |"RESIDENCIA"  |"MANSION"  |"CUARTO"  |"COCINA"  |"COMEDOR"  |"RECAMARA")+
+house&services ::=  ("PARED"  |"INTERIOR"  |"EXTERIOR"  |"DRENAJE"  |"AGUA_POTABLE"  |"ELECTRICIDAD")+
